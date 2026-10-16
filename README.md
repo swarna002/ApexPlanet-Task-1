@@ -1,2 +1,3 @@
-# ApexPlanet-Task-1
-This is the first task of my internship in ApexPlanet.
+# ApexPlanet Data Analytics Internship — Task 1
+This is my first task at ApexPlanet.
+## Data Immersion & Wrangling
