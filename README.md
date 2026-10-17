@@ -9,9 +9,7 @@ This project focuses on exploring, cleaning, and preparing a dataset for analysi
 **Tools Used**
 
 Python
-
 Pandas
-
 Excel
 
 **Tasks Performed**
