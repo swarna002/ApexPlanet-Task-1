@@ -9,7 +9,9 @@ This project focuses on exploring, cleaning, and preparing a dataset for analysi
 **Tools Used**
 
 Python
+
 Pandas
+
 Excel
 
 **Tasks Performed**
@@ -25,8 +27,11 @@ Created a data dictionary describing each variable and its business relevance.
 **Project Files**
 
 task1.py – Data cleaning script
+
 cleaned_dataset.csv – Cleaned dataset
+
 create_dictionary.py – Script to create the data dictionary
+
 data_dictionary.csv – Data dictionary
 
 **Outcome**
