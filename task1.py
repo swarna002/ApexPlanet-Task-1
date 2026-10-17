@@ -60,6 +60,10 @@ print(df.dtypes)
 print("\nMissing Values After Date Conversion:")
 print(df.isnull().sum())
 
+# Check invalid dates
+print("\nInvalid Dates:")
+print(df['Order_Date'].isnull().sum())
+
 # Display dataset information
 print("\nDataset Information:")
 df.info()
