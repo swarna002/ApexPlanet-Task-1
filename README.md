@@ -2,15 +2,15 @@
 This is my first task at ApexPlanet.
 ## Data Immersion & Wrangling
 
-**Project Overview**
+**Project Overview: **
 This project focuses on exploring, cleaning, and preparing a dataset for analysis using Python and Pandas.
 
-**Tools Used**
+**Tools Used: **
 Python
 Pandas
 Excel
 
-**Tasks Performed**
+**Tasks Performed: **
 Explored the dataset and reviewed its columns and data types.
 Identified and handled missing values.
 Checked for duplicate records.
@@ -19,11 +19,11 @@ Converted the order date column to datetime format.
 Checked numeric columns for potential outliers.
 Created a data dictionary describing each variable and its business relevance.
 
-**Project Files**
+**Project Files: **
 task1.py – Data cleaning script
 cleaned_dataset.csv – Cleaned dataset
 create_dictionary.py – Script to create the data dictionary
 data_dictionary.csv – Data dictionary
 
-**Outcome**
+**Outcome: **
 Prepared a cleaned dataset and documented its variables for further analysis.
