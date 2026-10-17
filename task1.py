@@ -1,0 +1,160 @@
+
+import pandas as pd
+
+df = pd.read_excel("ApexPlanet_DataAnalytics_Dataset.xlsx")
+
+print(df.head())
+
+
+print("Dataset Shape:")
+print(df.shape)
+
+print("\nColumn Names:")
+print(df.columns.tolist())
+
+print("\nDataset Information:")
+df.info()
+
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+
+# Handle missing values
+
+# Fill missing Age values with median
+df['Age'] = df['Age'].fillna(df['Age'].median())
+
+# Fill missing City values with Unknown
+df['City'] = df['City'].fillna('Unknown')
+
+# Check missing values again
+print("\nMissing Values After Cleaning:")
+print(df.isnull().sum())
+
+
+# Check duplicate records
+print("\nDuplicate Records:")
+print(df.duplicated().sum())
+
+# Remove duplicate records
+df = df.drop_duplicates()
+
+# Check duplicates after cleaning
+print("\nDuplicates After Cleaning:")
+print(df.duplicated().sum())
+
+
+# Check data types
+print("\nData Types Before Cleaning:")
+print(df.dtypes)
+
+# Convert Order_Date to datetime format
+df['Order_Date'] = pd.to_datetime(df['Order_Date'], errors='coerce')
+
+# Check data types after conversion
+print("\nData Types After Cleaning:")
+print(df.dtypes)
+
+
+# Verify missing values after date conversion
+print("\nMissing Values After Date Conversion:")
+print(df.isnull().sum())
+
+# Display dataset information
+print("\nDataset Information:")
+df.info()
+
+
+# Standardize text columns
+text_columns = [
+    'Gender', 'City', 'Product', 'Category', 'Customer_Name'
+]
+
+for col in text_columns:
+    df[col] = df[col].str.strip()
+
+# Standardize Gender capitalization
+df['Gender'] = df['Gender'].str.title()
+
+# Standardize Category and Product capitalization
+df['Category'] = df['Category'].str.title()
+df['Product'] = df['Product'].str.title()
+
+print("\nText formatting standardized successfully!")
+
+
+# Check outliers using the IQR method
+numeric_columns = [
+    'Age', 'Quantity', 'Unit_Price', 'Total_Sales'
+]
+
+print("\nOutlier Assessment:")
+
+for col in numeric_columns:
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_limit = Q1 - 1.5 * IQR
+    upper_limit = Q3 + 1.5 * IQR
+
+    outliers = df[
+        (df[col] < lower_limit) |
+        (df[col] > upper_limit)
+    ]
+
+    print(f"{col}: {len(outliers)} potential outliers")
+
+
+# Inspect potential Total_Sales outliers
+Q1 = df['Total_Sales'].quantile(0.25)
+Q3 = df['Total_Sales'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_limit = Q1 - 1.5 * IQR
+upper_limit = Q3 + 1.5 * IQR
+
+sales_outliers = df[
+    (df['Total_Sales'] < lower_limit) |
+    (df['Total_Sales'] > upper_limit)
+]
+
+print("\nPotential Total_Sales Outliers:")
+print(sales_outliers[
+    ['Order_ID', 'Product', 'Quantity',
+     'Unit_Price', 'Total_Sales']
+])
+
+print("\nTotal potential outliers:", len(sales_outliers))
+
+
+# Verify Total_Sales calculation
+expected_sales = df['Quantity'] * df['Unit_Price']
+
+sales_mismatch = ~(
+    (df['Total_Sales'] - expected_sales).abs() < 0.01
+)
+
+print("\nSales Calculation Mismatches:")
+print(sales_mismatch.sum())
+
+
+# Save cleaned dataset
+df.to_csv("cleaned_dataset.csv", index=False)
+
+print("\nCleaned dataset saved successfully!")
+
+
+# Final verification
+check_df = pd.read_csv("cleaned_dataset.csv")
+dictionary_df = pd.read_csv("data_dictionary.csv")
+
+print("\nCleaned Dataset Shape:", check_df.shape)
+print("Dictionary Shape:", dictionary_df.shape)
+
+print("\nMissing Values:")
+print(check_df.isnull().sum())
+
+print("\nDictionary Columns:")
+print(dictionary_df.columns.tolist())
+
