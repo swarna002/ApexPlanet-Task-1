@@ -2,74 +2,52 @@
 import pandas as pd
 
 df = pd.read_excel("ApexPlanet_DataAnalytics_Dataset.xlsx")
-
 print(df.head())
-
-
 print("Dataset Shape:")
 print(df.shape)
-
 print("\nColumn Names:")
 print(df.columns.tolist())
-
 print("\nDataset Information:")
 df.info()
-
 print("\nMissing Values:")
 print(df.isnull().sum())
 
-
 # Handle missing values
-
-# Fill missing Age values with median
 df['Age'] = df['Age'].fillna(df['Age'].median())
 
-# Fill missing City values with Unknown
 df['City'] = df['City'].fillna('Unknown')
 
-# Check missing values again
 print("\nMissing Values After Cleaning:")
 print(df.isnull().sum())
 
-
-# Check duplicate records
+# Duplicate records
 print("\nDuplicate Records:")
 print(df.duplicated().sum())
 
-# Remove duplicate records
 df = df.drop_duplicates()
 
-# Check duplicates after cleaning
 print("\nDuplicates After Cleaning:")
 print(df.duplicated().sum())
 
-
-# Check data types
+# Data types
 print("\nData Types Before Cleaning:")
 print(df.dtypes)
 
-# Convert Order_Date to datetime format
 df['Order_Date'] = pd.to_datetime(df['Order_Date'], errors='coerce')
 
-# Check data types after conversion
 print("\nData Types After Cleaning:")
 print(df.dtypes)
-
 
 # Verify missing values after date conversion
 print("\nMissing Values After Date Conversion:")
 print(df.isnull().sum())
 
-# Check invalid dates
 print("\nInvalid Dates:")
 print(df['Order_Date'].isnull().sum())
 
-# Display dataset information
 print("\nDataset Information:")
 df.info()
 
-
-# Standardize text columns
 text_columns = [
     'Gender', 'City', 'Product', 'Category', 'Customer_Name'
 ]
@@ -77,17 +55,13 @@ text_columns = [
 for col in text_columns:
     df[col] = df[col].str.strip()
 
-# Standardize Gender capitalization
 df['Gender'] = df['Gender'].str.title()
 
-# Standardize Category and Product capitalization
 df['Category'] = df['Category'].str.title()
 df['Product'] = df['Product'].str.title()
 
 print("\nText formatting standardized successfully!")
 
-
-# Check outliers using the IQR method
 numeric_columns = [
     'Age', 'Quantity', 'Unit_Price', 'Total_Sales'
 ]
@@ -108,7 +82,6 @@ for col in numeric_columns:
     ]
 
     print(f"{col}: {len(outliers)} potential outliers")
-
 
 # Inspect potential Total_Sales outliers
 Q1 = df['Total_Sales'].quantile(0.25)
@@ -131,8 +104,7 @@ print(sales_outliers[
 
 print("\nTotal potential outliers:", len(sales_outliers))
 
-
-# Verify Total_Sales calculation
+# Total_Sales calculation
 expected_sales = df['Quantity'] * df['Unit_Price']
 
 sales_mismatch = ~(
@@ -142,12 +114,9 @@ sales_mismatch = ~(
 print("\nSales Calculation Mismatches:")
 print(sales_mismatch.sum())
 
-
-# Save cleaned dataset
 df.to_csv("cleaned_dataset.csv", index=False)
 
 print("\nCleaned dataset saved successfully!")
-
 
 # Final verification
 check_df = pd.read_csv("cleaned_dataset.csv")
