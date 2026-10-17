@@ -15,11 +15,17 @@ Excel
 **Tasks Performed**
 
 Explored the dataset and reviewed its columns and data types.
+
 Identified and handled missing values.
+
 Checked for duplicate records.
+
 Standardized text formatting.
+
 Converted the order date column to datetime format.
+
 Checked numeric columns for potential outliers.
+
 Created a data dictionary describing each variable and its business relevance.
 
 **Project Files**
